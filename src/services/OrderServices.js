@@ -2,6 +2,11 @@ import {products} from "./ProductServices";
 import OrderItem from "../models/OrderItem";
 import Order from "../models/Order";
 
+export const states = Object.freeze({
+    1: 'Pending',
+    2: 'Completed',
+    3: 'Rejected',
+})
 
 let orders = [
     new Order(
@@ -70,6 +75,56 @@ export const fetchAllOrders = async (p) => {
             }, 1500);
         }catch (e) {
             reject(new Error('Error on fetch orders'))
+        }
+    })
+}
+
+export const updateOrderItems = async (order, item) => {
+    return new Promise((resolve, reject) => {
+        try{
+            setTimeout(() => {
+                orders = orders.map(o => {
+                    if(o.id === order.id) {
+                        o.addItem(item);
+                    }
+                    return o;
+                });
+                const edited = orders.find(o => o.id === order.id);
+                resolve(edited);
+            }, 1500);
+        }catch (e) {
+            reject(new Error('Error on update order'))
+        }
+    })
+}
+
+export const retrieveOrderById = async (id) => {
+    return new Promise((resolve, reject) => {
+        try{
+            setTimeout(() => {
+                resolve(orders.find(o => o.id === Number(id)));
+            }, 1500);
+        }catch (e) {
+            reject(new Error('Error on update order'))
+        }
+    })
+}
+
+export const updateOrderState = async (id, state) => {
+    return new Promise((resolve, reject) => {
+        try{
+            setTimeout(() => {
+                orders = orders.map(o => {
+                    if(o.id === Number(id)) {
+                        o.status = states[state];
+                    }
+                    return o;
+                });
+                const edited = orders.find(o => o.id === Number(id));
+                resolve(edited);
+            }, 1500);
+        }catch (e) {
+            reject(new Error('Error on update order'))
         }
     })
 }

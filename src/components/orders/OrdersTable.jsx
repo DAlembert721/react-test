@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {parseNumberToCurrency} from "../../utils/parse";
 import TablePaginator from "../Common/tables/TablePaginator";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAllOrdersByPage, setCurrentOrder} from "../../redux/slices/ordersSlice";
+import {fetchAllOrdersByPage, setCurrentOrder} from "../../redux/reducers/orders";
 
 export const OrdersContext = createContext([]);
 
@@ -43,8 +43,7 @@ const OrdersTable = () => {
                             </td>
                             <td>
                                 <Link
-                                    to={`/orders/${order.id}`}
-                                    onClick={() => dispatch(setCurrentOrder(order))}>
+                                    to={`/orders/${order.id}`}>
                                     Edit
                                 </Link>
                             </td>

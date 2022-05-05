@@ -5,9 +5,11 @@ import Orders from "./pages/Orders";
 import Products from "./pages/Products";
 import MenuNavbar from "./components/MenuNavbar";
 import OrderDetail from "./pages/OrderDetail";
+import {Modal, Spinner} from "reactstrap";
+import {useSelector} from "react-redux";
 
 const App = () =>  {
-
+    const {isLoading} = useSelector(state => state.ui);
   return (
     <div className="App">
         <MenuNavbar/>
@@ -20,6 +22,19 @@ const App = () =>  {
                 <Route path="products" element={<Products />}  />
             </Routes>
         </div>
+        <Modal
+            contentClassName="bg-transparent border-0"
+            centered
+            isOpen={isLoading}
+        >
+            <div className="d-flex justify-content-center">
+                <Spinner
+                    color="white"
+                >
+                    ...Loading
+                </Spinner>
+            </div>
+        </Modal>
     </div>
   )
 }

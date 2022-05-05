@@ -5,7 +5,14 @@ class Order {
         this.date = date;
         this.customer = customer;
         this.items = items;
-        this.subtotalAmount = items.reduce((a, b) => a + b.cost, 0);
+        this.updateAmountValues();
+    }
+    addItem(item) {
+        this.items = [...this.items, item];
+        this.updateAmountValues();
+    }
+    updateAmountValues() {
+        this.subtotalAmount = this.items.reduce((a, b) => a + b.cost, 0);
         this.totalAmount = this.subtotalAmount;
         this.cityTax = this.totalAmount * 0.10;
         this.totalAmount += this.cityTax;
