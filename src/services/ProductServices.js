@@ -13,7 +13,7 @@ export const products = [
         "Chocolate Chip Cookie",
         "Cookies",
         5,
-        false,
+        true,
     ),
     new Product(
         3,
