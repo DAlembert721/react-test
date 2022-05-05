@@ -1,5 +1,11 @@
 import {createSlice, current} from "@reduxjs/toolkit";
-import {fetchAllOrders, retrieveOrderById, updateOrderItems, updateOrderState} from "../../services/OrderServices";
+import {
+    addOrder,
+    fetchAllOrders,
+    retrieveOrderById,
+    updateOrderItems,
+    updateOrderState
+} from "../../services/OrderServices";
 import {requestStarted, requestSuccess} from "./ui";
 
 const INIT_STATE = {
@@ -27,11 +33,14 @@ export const ordersSlice = createSlice({
         },
         addItemToOrder: (state, action) => {
             state.current = action.payload;
+        },
+        addOrderToData: (state, action) => {
+            state.data = [action.payload, ...state.data.splice(0, state.data.length - 1)]
         }
     },
 });
 
-export const {setOrdersByPage, setCurrentOrder, addItemToOrder, resetCurrentOrder, resetOrdersState} = ordersSlice.actions;
+export const {setOrdersByPage, setCurrentOrder, addItemToOrder, resetCurrentOrder, resetOrdersState, addOrderToData} = ordersSlice.actions;
 
 export const fetchAllOrdersByPage = (page) => async (dispatch)  => {
     dispatch(requestStarted());
@@ -72,6 +81,17 @@ export const editOrderStatus = (id, status) => async (dispatch) => {
         .then(order => {
             dispatch(requestSuccess());
             dispatch(setCurrentOrder(order))
+        }).catch(e => {
+        console.log(e);
+    });
+}
+
+export const createOrder = (newOrder) => async (dispatch) => {
+    dispatch(requestStarted());
+    addOrder(newOrder)
+        .then(order => {
+            dispatch(requestSuccess());
+            dispatch(addOrderToData(order))
         }).catch(e => {
         console.log(e);
     });

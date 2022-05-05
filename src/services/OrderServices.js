@@ -128,3 +128,23 @@ export const updateOrderState = async (id, state) => {
         }
     })
 }
+
+export const addOrder = async (order) => {
+    return new Promise((resolve, reject) => {
+        try{
+            setTimeout(() => {
+                const newOrder = new Order(
+                    orders.length + 1,
+                    order.customer,
+                    states[1],
+                    new Date().toISOString(),
+                    []
+                )
+                orders = [newOrder, ...orders]
+                resolve(newOrder);
+            }, 1500);
+        }catch (e) {
+            reject(new Error('Error on add order'))
+        }
+    })
+}
