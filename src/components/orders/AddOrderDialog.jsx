@@ -39,6 +39,7 @@ const AddOrderDialog = ({open, setOpen}) => {
             </ModalBody>
             <ModalFooter>
                 <Button
+                    disabled={!(values.customer !== "")}
                     color="success"
                     onClick={() => handleAdd()}
                 >

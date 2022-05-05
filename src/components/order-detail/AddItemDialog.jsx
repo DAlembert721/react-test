@@ -69,6 +69,7 @@ const AddItemDialog = ({order, open, setOpen}) => {
             </ModalBody>
             <ModalFooter>
                 <Button
+                    disabled={!(values.product !== "" &&values.quantity > 0)}
                     color="success"
                     onClick={() => handleAdd()}
                 >
